@@ -332,12 +332,26 @@
             gap: 8px;
             font-weight: 500;
             cursor: default;
+            transition: all 0.3s var(--premium-ease);
         }
 
         .cert-pill svg {
             width: 16px;
             height: 16px;
             fill: var(--anthropic-color);
+            transition: transform 0.3s ease;
+        }
+
+        .cert-pill:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 6px 15px rgba(217, 119, 87, 0.2);
+            border-color: rgba(217, 119, 87, 0.3);
+            color: #000;
+        }
+
+        .cert-pill:hover svg {
+            transform: rotate(15deg) scale(1.15);
         }
 
         /* --------------------------------------
@@ -713,15 +727,14 @@
                         <h3>Education & Certifications</h3>
                         <p>2024 | Bachelor of Fine Arts | Animation | JNAFAU | Hyderabad</p>
                         
-                        <!-- OpenAI Header -->
-                        <h4 style="margin-top: 25px; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-weight: 500;">
+                        <!-- Main Certifications Header -->
+                        <h4 style="margin-top: 25px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; font-weight: 500;">
                             <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z" fill="var(--anthropic-color)"/>
                             </svg>
                             OpenAI — AI Leadership
                         </h4>
-
-                        <!-- Anthropic Header -->
+                        
                         <h4 style="margin-top: 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-weight: 500;">
                             <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z" fill="var(--anthropic-color)"/>
@@ -729,34 +742,35 @@
                             Anthropic Claude Certified (7x)
                         </h4>
 
-                        <!-- Certifications Container (Pills without hover animation) -->
+                        <!-- Certifications Container (Pills with hover animation) -->
                         <div class="cert-container" style="margin-bottom: 24px;">
+                            
                             <div class="cert-pill">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z"/></svg>
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/></svg>
                                 AI Capabilities & Limitations
                             </div>
                             <div class="cert-pill">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z"/></svg>
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/></svg>
                                 Anthropic AI Fluency
                             </div>
                             <div class="cert-pill">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z"/></svg>
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/></svg>
                                 Claude 101
                             </div>
                             <div class="cert-pill">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z"/></svg>
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/></svg>
                                 Claude Code 101
                             </div>
                             <div class="cert-pill">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z"/></svg>
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/></svg>
                                 Claude Code in Action
                             </div>
                             <div class="cert-pill">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z"/></svg>
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/></svg>
                                 Intro to Claude Cowork
                             </div>
                             <div class="cert-pill">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C12 7.52 16.48 12 22 12C16.48 12 12 16.48 12 22C12 16.48 7.52 12 2 12C7.52 12 12 7.52 12 2Z"/></svg>
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L14.8 9.2L23 12L14.8 14.8L12 23L9.2 14.8L1 12L9.2 9.2L12 1Z"/></svg>
                                 Intro to Model Context Protocol
                             </div>
                         </div>
