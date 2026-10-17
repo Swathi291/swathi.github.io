@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim & Darjeeling Winter Expedition — Packing Dashboard</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Canvas Confetti for 100% Completion Celebration -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brume: {
+                            DEFAULT: '#C2F2E4',
+                            soft: '#E6FAF4',
+                            deep: '#8CD9C3'
+                        },
+                        menthe: {
+                            DEFAULT: '#35C8B4',
+                            hover: '#26B09D',
+                            deep: '#198274'
+                        },
+                        limonade: {
+                            DEFAULT: '#EDF7BE',
+                            soft: '#F6FBE1'
+                        },
+                        verveine: {
+                            DEFAULT: '#A4CF4A',
+                            deep: '#84AD2E'
+                        },
+                        alpine: {
+                            DEFAULT: '#0D2B26',
+                            muted: '#385E57',
+                            deep: '#071A17',
+                            surface: '#11332D',
+                            card: '#153D36'
+                        },
+                        cream: {
+                            DEFAULT: '#FBFDF9',
+                            warm: '#F4F8F2'
+                        },
+                        coral: {
+                            DEFAULT: '#D93829',
+                            hover: '#B82B1E'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* =========================================================
+           MINT EDITORIAL DESIGN TOKENS & ATMOSPHERIC GRADIENT
+           ========================================================= */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-base: #FBFDF9;
+            --surface-card: rgba(255, 255, 255, 0.86);
+            --surface-Nested: #F3FAF7;
+            --text-primary: #0D2B26;
+            --text-secondary: #385E57;
+            --border-subtle: rgba(13, 43, 38, 0.10);
+            --border-focus: #35C8B4;
+            --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+            --cursor-x: 50vw;
+            --cursor-y: 35vh;
+        }
+
+        .dark {
+            --bg-base: #071A17;
+            --surface-card: rgba(17, 51, 45, 0.88);
+            --surface-Nested: #0C2621;
+            --text-primary: #ECF9F5;
+            --text-secondary: #A5CFC6;
+            --border-subtle: rgba(194, 242, 228, 0.14);
+            --border-focus: #35C8B4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* ~60% Opacity-Inspired Organic Mint/Lime/Cream Layered Gradient */
+            background-image: 
+                radial-gradient(circle at 8% 12%, rgba(194, 242, 228, 0.62) 0%, rgba(194, 242, 228, 0) 45%),
+                radial-gradient(circle at 92% 18%, rgba(237, 247, 190, 0.60) 0%, rgba(237, 247, 190, 0) 48%),
+                radial-gradient(circle at 50% 48%, rgba(53, 200, 180, 0.16) 0%, rgba(53, 200, 180, 0) 55%),
+                radial-gradient(circle at 85% 85%, rgba(164, 207, 74, 0.22) 0%, rgba(164, 207, 74, 0) 45%),
+                linear-gradient(160deg, rgba(194, 242, 228, 0.35) 0%, rgba(251, 253, 249, 0.85) 48%, rgba(237, 247, 190, 0.40) 100%);
+            background-attachment: fixed;
+        }
+
+        .dark body {
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(53, 200, 180, 0.16) 0%, rgba(53, 200, 180, 0) 45%),
+                radial-gradient(circle at 90% 20%, rgba(164, 207, 74, 0.12) 0%, rgba(164, 207, 74, 0) 45%),
+                linear-gradient(160deg, #071A17 0%, #0B2420 55%, #091E1A 100%);
+        }
+
+        /* =========================================================
+           SMOOTH CURSOR-FOLLOWING BLUE GRADIENT GLOW LAYER
+           ========================================================= */
+        #cursor-blue-glow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            will-change: background;
+            background: 
+                radial-gradient(
+                    460px circle at var(--cursor-x) var(--cursor-y),
+                    rgba(59, 130, 246, 0.18) 0%,
+                    rgba(37, 99, 235, 0.14) 28%,
+                    rgba(125, 211, 252, 0.12) 55%,
+                    rgba(125, 211, 252, 0) 78%
+                ),
+                radial-gradient(
+                    220px circle at var(--cursor-x) var(--cursor-y),
+                    rgba(59, 130, 246, 0.12) 0%,
+                    rgba(37, 99, 235, 0) 70%
+                );
+        }
+
+        .dark #cursor-blue-glow {
+            background: 
+                radial-gradient(
+                    480px circle at var(--cursor-x) var(--cursor-y),
+                    rgba(59, 130, 246, 0.22) 0%,
+                    rgba(37, 99, 235, 0.16) 30%,
+                    rgba(125, 211, 252, 0.10) 58%,
+                    rgba(125, 211, 252, 0) 80%
+                ),
+                radial-gradient(
+                    240px circle at var(--cursor-x) var(--cursor-y),
+                    rgba(125, 211, 252, 0.14) 0%,
+                    rgba(37, 99, 235, 0) 70%
+                );
+        }
+
+        /* Static subtle ambient blue glow on touchscreens / mobile */
+        @media (hover: none), (pointer: coarse) {
+            #cursor-blue-glow {
+                opacity: 0.75 !important;
+                background: radial-gradient(
+                    380px circle at 80% 20%,
+                    rgba(59, 130, 246, 0.12) 0%,
+                    rgba(125, 211, 252, 0.08) 45%,
+                    rgba(125, 211, 252, 0) 75%
+                );
+            }
+        }
+
+        /* Editorial Surface Cards (High Opacity for Crisp Readability) */
+        .editorial-card {
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.22s var(--ease-out-expo), box-shadow 0.22s var(--ease-out-expo), border-color 0.22s ease;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .editorial-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 28px -8px rgba(13, 43, 38, 0.08);
+                border-color: rgba(53, 200, 180, 0.35);
+            }
+            .dark .editorial-card:hover {
+                box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.35);
+                border-color: rgba(53, 200, 180, 0.4);
+            }
+        }
+
+        /* Progress Bar Styling with Verveine & Menthe */
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #35C8B4 0%, #A4CF4A 100%);
+            transition: width 0.45s var(--ease-out-expo);
+        }
+
+        /* Smooth Accordion / Dropdown Animation for Category Cards */
+        .category-dropdown-body {
+            display: grid;
+            grid-template-rows: 1fr;
+            transition: grid-template-rows 0.28s var(--ease-out-expo), opacity 0.22s ease;
+            opacity: 1;
+        }
+        .category-dropdown-body.is-collapsed {
+            grid-template-rows: 0fr;
+            opacity: 0;
+        }
+        .category-dropdown-inner {
+            overflow: hidden;
+        }
+
+        /* Subtle Custom Scrollbar for Desktop Category Lists */
+        .custom-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(53, 200, 180, 0.3);
+            border-radius: 9999px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.25s var(--ease-out-expo) forwards;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            #cursor-blue-glow {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen transition-colors duration-300 pb-16 relative">
+
+    <!-- DEDICATED FIXED CURSOR-FOLLOWING BLUE GRADIENT LAYER -->
+    <div id="cursor-blue-glow" aria-hidden="true"></div>
+
+    <!-- STICKY EDITORIAL NAVIGATION BAR -->
+    <header class="w-full bg-cream/85 dark:bg-alpine-deep/85 backdrop-blur-md border-b border-alpine/10 dark:border-brume/10 sticky top-0 z-40">
+        <div class="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+            <a href="#" class="flex items-center gap-2.5 text-xs sm:text-sm font-bold text-alpine dark:text-brume min-w-0 focus:outline-none focus:ring-2 focus:ring-menthe rounded-lg py-1">
+                <span class="w-8 h-8 rounded-lg bg-brume dark:bg-menthe/20 text-alpine dark:text-menthe flex items-center justify-center shrink-0">
+                    <i data-lucide="mountain-snow" class="w-4 h-4"></i>
+                </span>
+                <span class="truncate">Sikkim & Darjeeling Expedition</span>
+            </a>
+
+            <nav aria-label="Main navigation" class="flex items-center gap-2 sm:gap-5 text-xs sm:text-sm font-semibold text-alpine-muted dark:text-brume/80 shrink-0">
+                <a href="#checklist" class="px-2.5 py-1.5 rounded-lg hover:text-alpine dark:hover:text-white hover:bg-brume/40 dark:hover:bg-menthe/15 transition-colors focus:outline-none focus:ring-2 focus:ring-menthe">Checklist</a>
+                <a href="#itinerary" class="px-2.5 py-1.5 rounded-lg hover:text-alpine dark:hover:text-white hover:bg-brume/40 dark:hover:bg-menthe/15 transition-colors focus:outline-none focus:ring-2 focus:ring-menthe">Itinerary</a>
+                <a href="#tips" class="px-2.5 py-1.5 rounded-lg hover:text-alpine dark:hover:text-white hover:bg-brume/40 dark:hover:bg-menthe/15 transition-colors focus:outline-none focus:ring-2 focus:ring-menthe">Tips</a>
+                <button id="theme-toggle" type="button" aria-label="Toggle color theme" class="p-2 rounded-xl bg-brume/60 dark:bg-alpine-surface hover:bg-menthe/30 text-alpine dark:text-brume transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-menthe">
+                    <i data-lucide="moon" id="theme-icon" class="w-4 h-4"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION: SPLIT EDITORIAL LAYOUT (NO HEAVY FULL-WIDTH GREEN OVERLAY) -->
+    <section class="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 pt-6 sm:pt-10 pb-4">
+        <div class="editorial-card rounded-3xl p-5 sm:p-8 lg:p-10 shadow-sm">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Left Editorial Column (7 Cols on Desktop) -->
+                <div class="lg:col-span-7 space-y-5 min-w-0">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brume/70 dark:bg-menthe/20 text-alpine dark:text-brume text-xs font-bold">
+                            <i data-lucide="calendar" class="w-3.5 h-3.5 text-menthe-deep dark:text-menthe shrink-0"></i>
+                            <span>Dec 25 – Dec 30 • Return to HYD</span>
+                        </div>
+
+                        <button id="reset-btn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-coral dark:text-red-300 bg-coral/10 hover:bg-coral hover:text-white transition-colors flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-coral">
+                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                            <span>Reset List</span>
+                        </button>
+                    </div>
+
+                    <!-- Editable Trip Title with Pencil Indicator -->
+                    <div class="relative group">
+                        <label for="trip-title-input" class="sr-only">Editable Trip Title (Click to customize)</label>
+                        <input 
+                            type="text" 
+                            id="trip-title-input" 
+                            value="Sikkim & Darjeeling Winter Expedition" 
+                            aria-label="Trip Title"
+                            class="bg-transparent border-b-2 border-transparent hover:border-menthe/50 focus:border-menthe focus:outline-none w-full transition-colors text-2xl sm:text-3xl lg:text-4xl font-extrabold text-alpine dark:text-cream tracking-tight py-0.5 pr-8"
+                            title="Click to edit trip title"
+                        />
+                        <i data-lucide="pen-line" class="w-4 h-4 text-alpine-muted/50 group-hover:text-menthe absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none transition-colors"></i>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-alpine-muted dark:text-brume/80 leading-relaxed max-w-2xl">
+                        Interactive packing companion engineered for sub-zero passes in East Sikkim, central Gangtok monasteries, Darjeeling tea estates, and smooth flight transit back to Hyderabad.
+                    </p>
+
+                    <!-- Compact Integrated Progress Module -->
+                    <div class="bg-brume/35 dark:bg-alpine-deep/90 rounded-2xl p-4 sm:p-5 border border-alpine/10 dark:border-brume/15 space-y-2.5">
+                        <div class="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-semibold">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-menthe inline-block"></span>
+                                <span id="progress-text" class="text-alpine dark:text-cream">0 of 0 items packed (0%)</span>
+                            </div>
+                            <span id="progress-status" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-limonade text-alpine dark:bg-verveine/20 dark:text-limonade">
+                                Ready to pack
+                            </span>
+                        </div>
+                        <div class="w-full h-3 bg-cream dark:bg-alpine-surface rounded-full overflow-hidden p-0.5 border border-alpine/10 dark:border-brume/10">
+                            <div id="progress-fill" class="progress-bar-fill h-full rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Primary Action Row -->
+                    <div class="flex flex-wrap items-center gap-4 pt-1">
+                        <a href="#checklist" class="px-5 py-3 rounded-xl bg-alpine dark:bg-menthe hover:bg-menthe-deep dark:hover:bg-menthe-hover text-white dark:text-alpine-deep font-bold text-xs sm:text-sm transition-all active:scale-95 shadow-sm flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-menthe">
+                            <span>Start Packing</span>
+                            <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+                        </a>
+                        <div class="flex items-center gap-2 text-xs text-alpine-muted dark:text-brume/70">
+                            <i data-lucide="cloud-check" class="w-4 h-4 text-menthe-deep dark:text-menthe shrink-0"></i>
+                            <span>Auto-saved locally in your browser</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Imagery Column (5 Cols on Desktop) -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] border border-alpine/10 dark:border-brume/15 shadow-inner group bg-alpine-surface">
+                        <img 
+                            src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85" 
+                            alt="Snow-capped Kangchenjunga mountain peaks in Sikkim and Darjeeling" 
+                            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <!-- Subtle Bottom Caption Pill -->
+                        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 px-3.5 py-2 rounded-xl bg-alpine-deep/80 backdrop-blur-md text-cream text-[11px] sm:text-xs font-medium border border-brume/20">
+                            <span class="flex items-center gap-1.5 truncate">
+                                <i data-lucide="compass" class="w-3.5 h-3.5 text-menthe shrink-0"></i>
+                                <span class="truncate">East Sikkim • Gangtok • Darjeeling</span>
+                            </span>
+                            <span class="px-2 py-0.5 rounded bg-limonade text-alpine font-bold shrink-0">-5°C to 26°C</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN DASHBOARD CONTAINER -->
+    <main class="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 pt-6 space-y-12">
+
+        <!-- CONTROLS TOOLBAR (Filters, Search, Custom Item Adder) -->
+        <section aria-label="Packing Checklist Controls" class="editorial-card rounded-2xl p-4 sm:p-5 shadow-sm">
+            <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+                
+                <!-- Filter Pills & Search Input -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1 min-w-0">
+                    <div class="inline-flex p-1 rounded-xl bg-brume/40 dark:bg-alpine-deep border border-alpine/10 dark:border-brume/15 self-start shrink-0" role="toolbar" aria-label="Filter items by packing status">
+                        <button type="button" data-filter="all" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-menthe">All</button>
+                        <button type="button" data-filter="unpacked" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-menthe">Unpacked</button>
+                        <button type="button" data-filter="packed" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-menthe">Packed</button>
+                    </div>
+
+                    <div class="relative flex-1 min-w-0">
+                        <i data-lucide="search" class="w-4 h-4 text-alpine-muted dark:text-brume/60 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            placeholder="Search gear, documents, clothing..." 
+                            aria-label="Search packing items"
+                            class="w-full pl-10 pr-9 py-2 text-xs sm:text-sm bg-cream dark:bg-alpine-deep border border-alpine/15 dark:border-brume/20 rounded-xl text-alpine dark:text-cream placeholder:text-alpine-muted/60 dark:placeholder:text-brume/50 focus:outline-none focus:border-menthe focus:ring-2 focus:ring-menthe/30 transition-all"
+                        />
+                        <button type="button" id="clear-search" aria-label="Clear search query" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 p-1 rounded-lg text-alpine-muted hover:text-coral focus:outline-none focus:ring-2 focus:ring-menthe">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Custom Item Form -->
+                <form id="add-item-form" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
+                    <select 
+                        id="add-category-select" 
+                        aria-label="Select Category for new item"
+                        class="py-2 px-3 text-xs sm:text-sm bg-cream dark:bg-alpine-deep border border-alpine/15 dark:border-brume/20 rounded-xl text-alpine dark:text-cream font-medium focus:outline-none focus:border-menthe focus:ring-2 focus:ring-menthe/30"
+                    ></select>
+                    <div class="flex items-center gap-2">
+                        <input 
+                            type="text" 
+                            id="add-item-input" 
+                            placeholder="Add custom item..." 
+                            aria-label="Custom item name"
+                            required
+                            class="flex-1 min-w-0 sm:w-48 px-3.5 py-2 text-xs sm:text-sm bg-cream dark:bg-alpine-deep border border-alpine/15 dark:border-brume/20 rounded-xl text-alpine dark:text-cream placeholder:text-alpine-muted/60 dark:placeholder:text-brume/50 focus:outline-none focus:border-menthe focus:ring-2 focus:ring-menthe/30"
+                        />
+                        <button type="submit" class="px-4 py-2 bg-menthe hover:bg-menthe-hover text-alpine-deep font-bold text-xs sm:text-sm rounded-xl transition-all flex items-center justify-center gap-1.5 shrink-0 shadow-sm focus:outline-none focus:ring-2 focus:ring-alpine">
+                            <i data-lucide="plus" class="w-4 h-4 stroke-[2.5]"></i>
+                            <span>Add</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- PACKING CHECKLIST SECTION (With Category Filter Dropdown & Collapsible Category Dropdowns) -->
+        <section id="checklist" aria-labelledby="checklist-heading" class="space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-alpine/10 dark:border-brume/15 pb-3">
+                <div>
+                    <h2 id="checklist-heading" class="text-xl sm:text-2xl font-extrabold text-alpine dark:text-cream tracking-tight">
+                        Packing Checklist
+                    </h2>
+                    <p class="text-xs text-alpine-muted dark:text-brume/70">Click any category header to expand or collapse its dropdown list.</p>
+                </div>
+
+                <!-- Checklist Dropdown Controls -->
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <div class="relative">
+                        <select 
+                            id="category-view-dropdown" 
+                            aria-label="Jump to or filter packing category"
+                            class="py-1.5 pl-3 pr-8 text-xs font-bold bg-cream dark:bg-alpine-deep border border-alpine/15 dark:border-brume/20 rounded-xl text-alpine dark:text-brume focus:outline-none focus:border-menthe focus:ring-2 focus:ring-menthe/30 cursor-pointer"
+                        >
+                            <option value="all">All 5 Categories</option>
+                        </select>
+                    </div>
+
+                    <button 
+                        type="button" 
+                        id="toggle-all-dropdowns-btn"
+                        class="text-xs font-bold px-3.5 py-1.5 rounded-xl bg-limonade text-alpine dark:bg-verveine/20 dark:text-limonade border border-verveine/30 hover:bg-verveine/40 transition-colors flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-menthe"
+                    >
+                        <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5"></i>
+                        <span id="toggle-all-dropdowns-text">Collapse All</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Empty State for Search / Filter -->
+            <div id="empty-state" class="hidden py-12 px-6 text-center max-w-md mx-auto editorial-card rounded-2xl">
+                <div class="w-12 h-12 rounded-2xl bg-brume/60 dark:bg-menthe/20 text-alpine dark:text-menthe flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="search-x" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-base font-bold text-alpine dark:text-cream mb-1">No matching items found</h3>
+                <p class="text-xs text-alpine-muted dark:text-brume/70 mb-5">No packing items match your current filter or search term.</p>
+                <button type="button" id="reset-filter-btn" class="px-4 py-2.5 bg-menthe hover:bg-menthe-hover text-alpine-deep text-xs font-bold rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-alpine">
+                    Show All Items
+                </button>
+            </div>
+
+            <!-- 2-Column Category Grid -->
+            <div id="categories-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <!-- Rendered dynamically via JavaScript -->
+            </div>
+        </section>
+
+        <!-- ITINERARY SECTION (3 Stages) -->
+        <section id="itinerary" aria-labelledby="itinerary-heading" class="space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-alpine/10 dark:border-brume/15 pb-3">
+                <div>
+                    <h2 id="itinerary-heading" class="text-xl sm:text-2xl font-extrabold text-alpine dark:text-cream tracking-tight">
+                        Expedition Itinerary & Must-Visit Places
+                    </h2>
+                    <p class="text-xs text-alpine-muted dark:text-brume/70">Three climate zones from sub-zero mountain passes to warm plains.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Stage 1: East Sikkim & Gangtok -->
+                <article class="editorial-card rounded-2xl overflow-hidden flex flex-col">
+                    <div class="h-48 w-full overflow-hidden bg-alpine-surface relative">
+                        <img 
+                            src="https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=900&q=80" 
+                            alt="East Sikkim and Gangtok mountain pass" 
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                        <span class="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-alpine-deep/85 backdrop-blur-sm text-limonade text-xs font-bold border border-limonade/20">
+                            -5°C to 10°C
+                        </span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                        <div class="space-y-1.5">
+                            <div class="inline-flex items-center gap-1.5 text-xs font-bold text-menthe-deep dark:text-menthe">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 shrink-0"></i>
+                                <span>Dec 25 – Dec 28 Noon</span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold text-alpine dark:text-cream">East Sikkim & Gangtok</h3>
+                        </div>
+                        <p class="text-xs sm:text-sm text-alpine-muted dark:text-brume/85 leading-relaxed">
+                            <strong class="text-alpine dark:text-limonade font-semibold">Must-Visit Places:</strong> Tsomgo Lake, Baba Mandir, Nathula Pass, MG Marg (central Gangtok), Rumtek Monastery, and Enchey Monastery. Carry physical IDs and heavy sub-zero thermals.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Stage 2: Darjeeling Must-Visit Places -->
+                <article class="editorial-card rounded-2xl overflow-hidden flex flex-col">
+                    <div class="h-48 w-full overflow-hidden bg-alpine-surface relative">
+                        <img 
+                            src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=900&q=80" 
+                            alt="Darjeeling tea hills and mist" 
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                        <span class="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-alpine-deep/85 backdrop-blur-sm text-limonade text-xs font-bold border border-limonade/20">
+                            2°C to 11°C
+                        </span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                        <div class="space-y-1.5">
+                            <div class="inline-flex items-center gap-1.5 text-xs font-bold text-menthe-deep dark:text-menthe">
+                                <i data-lucide="sunrise" class="w-3.5 h-3.5 shrink-0"></i>
+                                <span>Dec 28 Noon – Dec 30 Noon</span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold text-alpine dark:text-cream">Darjeeling Must-Visit Places</h3>
+                        </div>
+                        <p class="text-xs sm:text-sm text-alpine-muted dark:text-brume/85 leading-relaxed">
+                            <strong class="text-alpine dark:text-limonade font-semibold">Must-Visit Places:</strong> Tiger Hill sunrise viewpoint, Batasia Loop, Himalayan Mountaineering Institute, Peace Pagoda, Happy Valley Tea Estate, and Mall Road.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Stage 3: Bagdogra to Hyderabad -->
+                <article class="editorial-card rounded-2xl overflow-hidden flex flex-col">
+                    <div class="h-48 w-full overflow-hidden bg-alpine-surface relative">
+                        <img 
+                            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80" 
+                            alt="Flight transit from Bagdogra to Hyderabad" 
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                        <span class="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-alpine-deep/85 backdrop-blur-sm text-limonade text-xs font-bold border border-limonade/20">
+                            6°C → 26°C
+                        </span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                        <div class="space-y-1.5">
+                            <div class="inline-flex items-center gap-1.5 text-xs font-bold text-menthe-deep dark:text-menthe">
+                                <i data-lucide="plane-takeoff" class="w-3.5 h-3.5 shrink-0"></i>
+                                <span>Dec 30 Noon Flight</span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold text-alpine dark:text-cream">Bagdogra to Hyderabad</h3>
+                        </div>
+                        <p class="text-xs sm:text-sm text-alpine-muted dark:text-brume/85 leading-relaxed">
+                            Depart Darjeeling 3.5 hours before flight to Bagdogra Airport (IXB). Wear a breathable cotton t-shirt underneath outer layers to comfortably transition into warm 26°C Hyderabad weather upon landing.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- TRAVEL TIPS SECTION -->
+        <section id="tips" aria-labelledby="tips-heading" class="editorial-card rounded-2xl p-6 sm:p-8 space-y-5">
+            <div class="border-b border-alpine/10 dark:border-brume/15 pb-3 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                    <span class="p-2 rounded-xl bg-limonade dark:bg-verveine/20 text-alpine dark:text-limonade">
+                        <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                    </span>
+                    <h2 id="tips-heading" class="text-base sm:text-lg font-bold text-alpine dark:text-cream">
+                        Essential Travel & Altitude Notes
+                    </h2>
+                </div>
+                <a href="#" class="text-xs font-bold text-menthe-deep dark:text-menthe hover:underline flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-menthe rounded-lg px-2 py-1">
+                    <span>Back to top</span>
+                    <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm text-alpine-muted dark:text-brume/85">
+                <div class="p-4 rounded-xl bg-brume/30 dark:bg-alpine-deep border border-alpine/10 dark:border-brume/15">
+                    <strong class="text-alpine dark:text-brume font-bold flex items-center gap-1.5 mb-1.5">
+                        <i data-lucide="id-card" class="w-4 h-4 text-menthe-deep dark:text-menthe shrink-0"></i>
+                        <span>Permits & Identification (Verify Before Travel)</span>
+                    </strong>
+                    Aadhaar cards are frequently rejected for Protected Area Permits at East Sikkim checkpoints. Carry physical original Voter IDs, Passports, or Driving Licenses alongside 6 passport-size photographs per traveler.
+                </div>
+                <div class="p-4 rounded-xl bg-limonade/40 dark:bg-alpine-deep border border-alpine/10 dark:border-brume/15">
+                    <strong class="text-alpine dark:text-limonade font-bold flex items-center gap-1.5 mb-1.5">
+                        <i data-lucide="battery-charging" class="w-4 h-4 text-verveine-deep dark:text-verveine shrink-0"></i>
+                        <span>Sub-Zero Battery Care & Cabin Rules</span>
+                    </strong>
+                    Freezing temperatures at Nathula and Tiger Hill drain phone and camera batteries rapidly. Store electronics in inner body-warm pockets, and pack all power banks strictly in your cabin hand luggage for the IXB–HYD flight.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-alpine-deep/75 backdrop-blur-sm">
+        <div class="editorial-card rounded-2xl max-w-md w-full p-6 shadow-2xl border border-alpine/20">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-xl bg-coral/15 text-coral flex items-center justify-center shrink-0">
+                    <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                </div>
+                <h3 id="modal-title" class="text-lg font-bold text-alpine dark:text-cream">Reset Packing List?</h3>
+            </div>
+            <p id="modal-desc" class="text-xs sm:text-sm text-alpine-muted dark:text-brume/80 mb-6 leading-relaxed">
+                This will uncheck all packed items, remove custom additions, and restore the original expedition checklist.
+            </p>
+            <div class="flex items-center justify-end gap-3">
+                <button type="button" id="modal-cancel" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-alpine dark:text-cream hover:bg-alpine/10 dark:hover:bg-brume/10 transition-colors focus:outline-none focus:ring-2 focus:ring-menthe">
+                    Cancel
+                </button>
+                <button type="button" id="modal-confirm" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-white bg-coral hover:bg-coral-hover transition-colors focus:outline-none focus:ring-2 focus:ring-coral">
+                    Reset Everything
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" aria-live="polite" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // Default checklist data for Sikkim & Darjeeling Dec 25-30
+        const DEFAULT_CATEGORIES = [
+            {
+                id: 'permits_docs',
+                name: 'Permits, IDs & Flight Docs',
+                icon: 'file-check-2',
+                items: [
+                    { id: 'p1', text: 'Flight Boarding Pass / Tickets (Dec 30 to Hyderabad)', qty: 1, packed: false },
+                    { id: 'p2', text: 'Original Voter ID / Passport / Driving License (For Sikkim PAP)', qty: 1, packed: false },
+                    { id: 'p3', text: 'Passport-Size Photographs (For Nathula & Tsomgo permits)', qty: 6, packed: false },
+                    { id: 'p4', text: 'Photocopies of Government IDs', qty: 4, packed: false },
+                    { id: 'p5', text: 'Sikkim Hotel Vouchers (Dec 25 - Dec 28)', qty: 1, packed: false },
+                    { id: 'p6', text: 'Darjeeling Hotel Vouchers (Dec 28 - Dec 30)', qty: 1, packed: false },
+                    { id: 'p7', text: 'Cash in Small Denominations (ATMs often offline in hills)', qty: 1, packed: false },
+                    { id: 'p8', text: 'Wallet & Debit/Credit Cards', qty: 1, packed: false }
+                ]
+            },
+            {
+                id: 'heavy_winter',
+                name: 'Heavy Winter & Thermal Wear',
+                icon: 'snowflake',
+                items: [
+                    { id: 'w1', text: 'Heavy Down / Puffer Jacket (-10°C rated for Sikkim & Tiger Hill)', qty: 1, packed: false },
+                    { id: 'w2', text: 'Fleece-Lined Thermal Innerwear Sets (Top & Bottom base layers)', qty: 3, packed: false },
+                    { id: 'w3', text: 'Fleece Jackets / Woolen Sweaters (Mid layers)', qty: 3, packed: false },
+                    { id: 'w4', text: 'Windproof Outer Shell Jacket', qty: 1, packed: false },
+                    { id: 'w5', text: 'Woolen Beanie / Skull Cap & Ear Muffs', qty: 2, packed: false },
+                    { id: 'w6', text: 'Waterproof Thermal Gloves (For snow at Tsomgo/Nathula)', qty: 2, packed: false },
+                    { id: 'w7', text: 'Thick Woolen / Thermal Socks', qty: 5, packed: false },
+                    { id: 'w8', text: 'Woolen Muffler / Neck Warmer / Balaclava', qty: 2, packed: false }
+                ]
+            },
+            {
+                id: 'daywear_footwear',
+                name: 'Daywear & HYD Transit',
+                icon: 'shirt',
+                items: [
+                    { id: 'd1', text: 'Warm Trekking Pants / Fleece-Lined Jeans', qty: 3, packed: false },
+                    { id: 'd2', text: 'Full-Sleeve T-Shirts / Warm Tops', qty: 4, packed: false },
+                    { id: 'd3', text: 'Light Cotton T-Shirt (For Dec 30 landing in 26°C Hyderabad)', qty: 1, packed: false },
+                    { id: 'd4', text: 'Warm Flannel Nightwear', qty: 2, packed: false },
+                    { id: 'd5', text: 'Underwear & Cotton Socks', qty: 6, packed: false },
+                    { id: 'd6', text: 'Waterproof Ankle Trekking Shoes / Snow Grip Boots', qty: 1, packed: false },
+                    { id: 'd7', text: 'Comfortable Walking Sneakers (Darjeeling Mall Road)', qty: 1, packed: false },
+                    { id: 'd8', text: 'UV-Protected Sunglasses (Snow glare prevention)', qty: 1, packed: false }
+                ]
+            },
+            {
+                id: 'altitude_health',
+                name: 'High-Altitude Health & Toiletries',
+                icon: 'heart-pulse',
+                items: [
+                    { id: 'h1', text: 'Motion Sickness Tablets (For winding hill roads)', qty: 1, packed: false },
+                    { id: 'h2', text: 'AMS Medication / Diamox (Consult doctor beforehand)', qty: 1, packed: false },
+                    { id: 'h3', text: 'Camphor / Nasal Inhaler (For high altitude breathing)', qty: 1, packed: false },
+                    { id: 'h4', text: 'Intensive Cold Cream, Body Lotion & SPF Lip Balm', qty: 2, packed: false },
+                    { id: 'h5', text: 'High-Altitude Sunscreen SPF 50+', qty: 1, packed: false },
+                    { id: 'h6', text: 'First-Aid Kit (Painkiller, Band-Aids, ORS, Cold meds)', qty: 1, packed: false },
+                    { id: 'h7', text: 'Wet Wipes, Pocket Tissues & Hand Sanitizer', qty: 2, packed: false },
+                    { id: 'h8', text: 'Toothbrush, Toothpaste & Toiletries (<100ml for cabin)', qty: 1, packed: false }
+                ]
+            },
+            {
+                id: 'electronics_gear',
+                name: 'Electronics & Gear',
+                icon: 'smartphone-charging',
+                items: [
+                    { id: 'g1', text: '20,000mAh Power Bank (Cabin bag ONLY; cold drains batteries)', qty: 1, packed: false },
+                    { id: 'g2', text: 'Insulated Thermos Flask (Hot water for road journeys)', qty: 1, packed: false },
+                    { id: 'g3', text: 'Smartphone, Camera & Chargers', qty: 1, packed: false },
+                    { id: 'g4', text: 'Multi-Plug Extension / Adapter', qty: 1, packed: false },
+                    { id: 'g5', text: 'Ziplock Bags (Protects electronics from snow/fog)', qty: 4, packed: false },
+                    { id: 'g6', text: 'Foldable Daypack & Packable Tote (For IXB airport)', qty: 1, packed: false },
+                    { id: 'g7', text: 'High-Energy Snacks (Dry fruits, protein bars)', qty: 1, packed: false },
+                    { id: 'g8', text: 'Disposable Hand & Foot Warmers (For Tiger Hill sunrise)', qty: 4, packed: false }
+                ]
+            }
+        ];
+
+        const STORAGE_KEY = 'wanderlust_sikkim_darjeeling_v3';
+        const THEME_KEY = 'wanderlust_theme_v3';
+
+        let state = {
+            tripName: 'Sikkim & Darjeeling Winter Expedition',
+            categories: [],
+            filter: 'all',
+            selectedCategory: 'all',
+            collapsedCategories: {},
+            searchQuery: '',
+            celebrated: false
+        };
+
+        function loadState() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    state.tripName = parsed.tripName || 'Sikkim & Darjeeling Winter Expedition';
+                    state.categories = parsed.categories || JSON.parse(JSON.stringify(DEFAULT_CATEGORIES));
+                    state.collapsedCategories = parsed.collapsedCategories || {};
+                    state.celebrated = Boolean(parsed.celebrated);
+                } else {
+                    state.categories = JSON.parse(JSON.stringify(DEFAULT_CATEGORIES));
+                }
+            } catch (err) {
+                state.categories = JSON.parse(JSON.stringify(DEFAULT_CATEGORIES));
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    tripName: state.tripName,
+                    categories: state.categories,
+                    collapsedCategories: state.collapsedCategories,
+                    celebrated: state.celebrated
+                }));
+            } catch (err) {}
+        }
+
+        function showToast(message, icon = 'check-circle-2') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'animate-fade-in flex items-center gap-2.5 px-4 py-3 rounded-xl bg-alpine text-cream text-xs sm:text-sm font-semibold shadow-xl border border-menthe/40';
+            toast.innerHTML = `<i data-lucide="${icon}" class="w-4 h-4 text-menthe shrink-0"></i><span>${escapeHTML(message)}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.2s ease';
+                setTimeout(() => toast.remove(), 200);
+            }, 2500);
+        }
+
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function updateProgress() {
+            let total = 0;
+            let packed = 0;
+            state.categories.forEach(cat => {
+                cat.items.forEach(item => {
+                    total++;
+                    if (item.packed) packed++;
+                });
+            });
+
+            const percent = total === 0 ? 0 : Math.round((packed / total) * 100);
+            document.getElementById('progress-fill').style.width = `${percent}%`;
+            document.getElementById('progress-text').textContent = `${packed} of ${total} items packed (${percent}%)`;
+            
+            const statusEl = document.getElementById('progress-status');
+            if (percent === 0) {
+                statusEl.textContent = 'Ready to pack';
+                statusEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-limonade text-alpine dark:bg-verveine/20 dark:text-limonade';
+                state.celebrated = false;
+            } else if (percent < 100) {
+                statusEl.textContent = `${100 - percent}% remaining`;
+                statusEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-brume text-alpine dark:bg-menthe/20 dark:text-brume';
+                state.celebrated = false;
+            } else {
+                statusEl.textContent = 'All packed! 🎉';
+                statusEl.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-verveine text-alpine-deep';
+                if (!state.celebrated && typeof confetti === 'function') {
+                    state.celebrated = true;
+                    saveState();
+                    confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+                }
+            }
+        }
+
+        function updateToggleAllButtonText() {
+            const btnText = document.getElementById('toggle-all-dropdowns-text');
+            if (!btnText) return;
+            const allCollapsed = state.categories.every(cat => state.collapsedCategories[cat.id]);
+            btnText.textContent = allCollapsed ? 'Expand All' : 'Collapse All';
+        }
+
+        function toggleCategoryDropdown(catId) {
+            state.collapsedCategories[catId] = !state.collapsedCategories[catId];
+            saveState();
+            renderChecklist();
+        }
+
+        function renderChecklist() {
+            updateProgress();
+            updateToggleAllButtonText();
+            const grid = document.getElementById('categories-grid');
+            const emptyState = document.getElementById('empty-state');
+            const query = state.searchQuery.toLowerCase().trim();
+
+            let visibleCount = 0;
+            const html = state.categories.map(cat => {
+                if (state.selectedCategory !== 'all' && cat.id !== state.selectedCategory) {
+                    return '';
+                }
+
+                const filtered = cat.items.filter(item => {
+                    const matchesFilter = state.filter === 'all' || 
+                        (state.filter === 'packed' && item.packed) || 
+                        (state.filter === 'unpacked' && !item.packed);
+                    const matchesSearch = !query || item.text.toLowerCase().includes(query);
+                    return matchesFilter && matchesSearch;
+                });
+
+                visibleCount += filtered.length;
+                if (filtered.length === 0 && (state.filter !== 'all' || query)) return '';
+
+                const packedInCat = cat.items.filter(i => i.packed).length;
+                const totalInCat = cat.items.length;
+                const catPercent = totalInCat === 0 ? 0 : Math.round((packedInCat / totalInCat) * 100);
+                // Auto-expand if user is actively searching so results are visible
+                const isCollapsed = query ? false : Boolean(state.collapsedCategories[cat.id]);
+
+                const itemsHTML = filtered.map(item => `
+                    <li class="flex items-start justify-between gap-3 py-3 px-3 rounded-xl hover:bg-brume/25 dark:hover:bg-menthe/10 transition-colors">
+                        <label class="flex items-start gap-3 flex-1 cursor-pointer select-none min-w-0">
+                            <input 
+                                type="checkbox" 
+                                ${item.packed ? 'checked' : ''} 
+                                onchange="toggleItem('${cat.id}', '${item.id}')"
+                                class="sr-only peer"
+                                aria-label="Mark ${escapeHTML(item.text)} as ${item.packed ? 'unpacked' : 'packed'}"
+                            />
+                            <div class="w-5 h-5 mt-0.5 rounded-md border-2 border-alpine/30 dark:border-brume/40 bg-white dark:bg-alpine-deep peer-checked:bg-menthe peer-checked:border-menthe peer-focus-visible:ring-2 peer-focus-visible:ring-alpine flex items-center justify-center shrink-0 transition-colors">
+                                ${item.packed ? '<i data-lucide="check" class="w-3.5 h-3.5 text-alpine-deep stroke-[3]"></i>' : ''}
+                            </div>
+                            <span class="text-xs sm:text-sm leading-relaxed break-words ${item.packed ? 'line-through text-alpine-muted/60 dark:text-brume/40' : 'text-alpine dark:text-cream font-medium'}">
+                                ${escapeHTML(item.text)}
+                            </span>
+                        </label>
+                        <div class="flex items-center gap-1.5 shrink-0 pt-0.5">
+                            <div class="flex items-center bg-brume/35 dark:bg-alpine-deep rounded-lg p-0.5 border border-alpine/10 dark:border-brume/15">
+                                <button type="button" onclick="adjustQty('${cat.id}', '${item.id}', -1)" aria-label="Decrease quantity for ${escapeHTML(item.text)}" class="w-6 h-6 flex items-center justify-center text-xs font-bold rounded-md hover:bg-menthe/30 text-alpine dark:text-cream transition-colors focus:outline-none focus:ring-2 focus:ring-menthe">-</button>
+                                <span class="px-1.5 text-[11px] font-bold min-w-[1.5rem] text-center text-alpine dark:text-brume">${item.qty || 1}x</span>
+                                <button type="button" onclick="adjustQty('${cat.id}', '${item.id}', 1)" aria-label="Increase quantity for ${escapeHTML(item.text)}" class="w-6 h-6 flex items-center justify-center text-xs font-bold rounded-md hover:bg-menthe/30 text-alpine dark:text-cream transition-colors focus:outline-none focus:ring-2 focus:ring-menthe">+</button>
+                            </div>
+                            <button type="button" onclick="deleteItem('${cat.id}', '${item.id}')" aria-label="Delete ${escapeHTML(item.text)}" class="p-1.5 rounded-lg text-alpine-muted/70 hover:text-coral hover:bg-coral/10 transition-colors focus:outline-none focus:ring-2 focus:ring-coral">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </li>
+                `).join('');
+
+                return `
+                    <section class="editorial-card rounded-2xl overflow-hidden flex flex-col">
+                        <button 
+                            type="button"
+                            onclick="toggleCategoryDropdown('${cat.id}')"
+                            aria-expanded="${!isCollapsed}"
+                            aria-controls="cat-list-${cat.id}"
+                            class="w-full text-left p-4 sm:p-5 border-b border-alpine/10 dark:border-brume/15 bg-brume/30 dark:bg-alpine-deep/60 hover:bg-brume/45 dark:hover:bg-alpine-deep/90 transition-colors focus:outline-none focus:ring-2 focus:ring-inset focus:ring-menthe"
+                        >
+                            <div class="flex items-center justify-between gap-3 mb-2.5">
+                                <div class="flex items-center gap-2.5 min-w-0">
+                                    <div class="p-2 rounded-xl bg-alpine dark:bg-menthe text-brume dark:text-alpine-deep shrink-0">
+                                        <i data-lucide="${cat.icon}" class="w-4 h-4"></i>
+                                    </div>
+                                    <h3 class="text-sm sm:text-base font-bold text-alpine dark:text-cream break-words">${escapeHTML(cat.name)}</h3>
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-cream dark:bg-alpine-surface text-alpine dark:text-brume border border-alpine/10 dark:border-brume/15">
+                                        ${packedInCat}/${totalInCat}
+                                    </span>
+                                    <span class="p-1 rounded-lg bg-cream/70 dark:bg-alpine-surface text-alpine dark:text-brume transition-transform duration-200 ${isCollapsed ? '' : 'rotate-180'}">
+                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="w-full h-1.5 bg-cream dark:bg-alpine-surface rounded-full overflow-hidden">
+                                <div class="progress-bar-fill h-full rounded-full" style="width: ${catPercent}%"></div>
+                            </div>
+                        </button>
+                        <div id="cat-list-${cat.id}" class="category-dropdown-body ${isCollapsed ? 'is-collapsed' : ''}">
+                            <div class="category-dropdown-inner">
+                                <ul class="p-2 sm:p-3 divide-y divide-alpine/5 dark:divide-brume/10 flex-1 md:max-h-80 md:overflow-y-auto custom-scroll">
+                                    ${itemsHTML || '<li class="py-6 text-center text-xs text-alpine-muted">No items in this category.</li>'}
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }).join('');
+
+            grid.innerHTML = html;
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+                grid.classList.add('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                grid.classList.remove('hidden');
+            }
+            lucide.createIcons();
+        }
+
+        function toggleItem(catId, itemId) {
+            const cat = state.categories.find(c => c.id === catId);
+            if (!cat) return;
+            const item = cat.items.find(i => i.id === itemId);
+            if (!item) return;
+            item.packed = !item.packed;
+            saveState();
+            renderChecklist();
+        }
+
+        function adjustQty(catId, itemId, delta) {
+            const cat = state.categories.find(c => c.id === catId);
+            if (!cat) return;
+            const item = cat.items.find(i => i.id === itemId);
+            if (!item) return;
+            const newQty = (item.qty || 1) + delta;
+            if (newQty >= 1 && newQty <= 99) {
+                item.qty = newQty;
+                saveState();
+                renderChecklist();
+            }
+        }
+
+        function deleteItem(catId, itemId) {
+            const cat = state.categories.find(c => c.id === catId);
+            if (!cat) return;
+            cat.items = cat.items.filter(i => i.id !== itemId);
+            saveState();
+            renderChecklist();
+            showToast('Item removed from list', 'trash-2');
+        }
+
+        function populateCategorySelects() {
+            const select = document.getElementById('add-category-select');
+            select.innerHTML = state.categories.map(c => `<option value="${c.id}">${escapeHTML(c.name)}</option>`).join('');
+
+            const viewDropdown = document.getElementById('category-view-dropdown');
+            if (viewDropdown) {
+                viewDropdown.innerHTML = `<option value="all">All ${state.categories.length} Categories</option>` +
+                    state.categories.map(c => `<option value="${c.id}">${escapeHTML(c.name)}</option>`).join('');
+                viewDropdown.value = state.selectedCategory;
+            }
+        }
+
+        function updateFilterStyles() {
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                const isActive = b.getAttribute('data-filter') === state.filter;
+                b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                if (isActive) {
+                    b.className = 'filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-menthe text-alpine-deep shadow-sm focus:outline-none focus:ring-2 focus:ring-alpine';
+                } else {
+                    b.className = 'filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-alpine dark:text-brume hover:bg-menthe/20 focus:outline-none focus:ring-2 focus:ring-menthe';
+                }
+            });
+        }
+
+        /* =========================================================
+           SMOOTH CURSOR-FOLLOWING BLUE GLOW ENGINE (rAF + LERP)
+           ========================================================= */
+        function initCursorBlueGlow() {
+            const glowLayer = document.getElementById('cursor-blue-glow');
+            if (!glowLayer) return;
+
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+            if (prefersReducedMotion || !hasFinePointer) return;
+
+            let targetX = window.innerWidth * 0.5;
+            let targetY = window.innerHeight * 0.35;
+            let currentX = targetX;
+            let currentY = targetY;
+            let rafId = null;
+            let isVisible = false;
+
+            const LERP_FACTOR = 0.14; // Smooth fluid delay
+
+            function animateGlow() {
+                const dx = targetX - currentX;
+                const dy = targetY - currentY;
+
+                currentX += dx * LERP_FACTOR;
+                currentY += dy * LERP_FACTOR;
+
+                document.documentElement.style.setProperty('--cursor-x', `${currentX.toFixed(1)}px`);
+                document.documentElement.style.setProperty('--cursor-y', `${currentY.toFixed(1)}px`);
+
+                if (Math.abs(dx) > 0.15 || Math.abs(dy) > 0.15) {
+                    rafId = requestAnimationFrame(animateGlow);
+                } else {
+                    rafId = null;
+                }
+            }
+
+            window.addEventListener('mousemove', (e) => {
+                targetX = e.clientX;
+                targetY = e.clientY;
+
+                if (!isVisible) {
+                    isVisible = true;
+                    glowLayer.style.opacity = '1';
+                }
+
+                if (!rafId) {
+                    rafId = requestAnimationFrame(animateGlow);
+                }
+            }, { passive: true });
+
+            document.addEventListener('mouseleave', () => {
+                isVisible = false;
+                glowLayer.style.opacity = '0';
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            populateCategorySelects();
+            initCursorBlueGlow();
+
+            // Theme setup
+            const savedTheme = localStorage.getItem(THEME_KEY);
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+            }
+
+            document.getElementById('theme-toggle').addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+                document.getElementById('theme-icon').setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+                lucide.createIcons();
+            });
+
+            // Trip Title input
+            const titleInput = document.getElementById('trip-title-input');
+            titleInput.value = state.tripName;
+            titleInput.addEventListener('change', (e) => {
+                state.tripName = e.target.value.trim() || 'Sikkim & Darjeeling Winter Expedition';
+                titleInput.value = state.tripName;
+                saveState();
+                showToast('Trip title saved');
+            });
+
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    state.filter = e.currentTarget.getAttribute('data-filter');
+                    updateFilterStyles();
+                    renderChecklist();
+                });
+            });
+            updateFilterStyles();
+
+            // Category View Dropdown & Expand/Collapse All Dropdowns
+            const categoryViewDropdown = document.getElementById('category-view-dropdown');
+            categoryViewDropdown.addEventListener('change', (e) => {
+                state.selectedCategory = e.target.value;
+                if (state.selectedCategory !== 'all') {
+                    state.collapsedCategories[state.selectedCategory] = false;
+                }
+                renderChecklist();
+            });
+
+            document.getElementById('toggle-all-dropdowns-btn').addEventListener('click', () => {
+                const allCollapsed = state.categories.every(cat => state.collapsedCategories[cat.id]);
+                state.categories.forEach(cat => {
+                    state.collapsedCategories[cat.id] = !allCollapsed;
+                });
+                saveState();
+                renderChecklist();
+            });
+
+            // Search
+            const searchInput = document.getElementById('search-input');
+            const clearSearch = document.getElementById('clear-search');
+            searchInput.addEventListener('input', (e) => {
+                state.searchQuery = e.target.value;
+                clearSearch.classList.toggle('hidden', !state.searchQuery);
+                renderChecklist();
+            });
+            clearSearch.addEventListener('click', () => {
+                state.searchQuery = '';
+                searchInput.value = '';
+                clearSearch.classList.add('hidden');
+                searchInput.focus();
+                renderChecklist();
+            });
+            document.getElementById('reset-filter-btn').addEventListener('click', () => {
+                state.filter = 'all';
+                state.selectedCategory = 'all';
+                state.searchQuery = '';
+                searchInput.value = '';
+                categoryViewDropdown.value = 'all';
+                clearSearch.classList.add('hidden');
+                updateFilterStyles();
+                renderChecklist();
+            });
+
+            // Add custom item
+            document.getElementById('add-item-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const catId = document.getElementById('add-category-select').value;
+                const input = document.getElementById('add-item-input');
+                const text = input.value.trim();
+                if (!text) return;
+
+                const cat = state.categories.find(c => c.id === catId);
+                if (cat) {
+                    cat.items.push({
+                        id: 'custom_' + Date.now(),
+                        text: text,
+                        qty: 1,
+                        packed: false
+                    });
+                    state.collapsedCategories[catId] = false;
+                    state.celebrated = false;
+                    saveState();
+                    renderChecklist();
+                    input.value = '';
+                    showToast(`Added "${text}"`);
+                }
+            });
+
+            // Reset modal handlers
+            const modal = document.getElementById('confirm-modal');
+            document.getElementById('reset-btn').addEventListener('click', () => {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            });
+            document.getElementById('modal-cancel').addEventListener('click', () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+            document.getElementById('modal-confirm').addEventListener('click', () => {
+                state.categories = JSON.parse(JSON.stringify(DEFAULT_CATEGORIES));
+                state.tripName = 'Sikkim & Darjeeling Winter Expedition';
+                state.selectedCategory = 'all';
+                state.collapsedCategories = {};
+                state.celebrated = false;
+                titleInput.value = state.tripName;
+                categoryViewDropdown.value = 'all';
+                saveState();
+                renderChecklist();
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                showToast('Checklist restored to defaults', 'refresh-cw');
+            });
+
+            renderChecklist();
+        });
+    </script>
+</body>
+</html>
